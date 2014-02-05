@@ -7,4 +7,10 @@ rescue LoadError
   require 'tarzan'
 end
 
-Tarzan.play
+puts %{Pick [S]hell or [C]ampfire: }
+interface = case gets.strip
+  when 'S' then Tarzan::Interfaces::Shell::Interface.new
+  when 'C' then Tarzan::Interfaces::Campfire::Interface.new subdomain: ENV['CAMPFIRE_SUBDOMAIN'], room_id: ENV['CAMPFIRE_ROOM_ID'], token: ENV['CAMPFIRE_TOKEN']
+end
+
+interface.play

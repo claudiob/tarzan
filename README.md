@@ -22,6 +22,8 @@ From the command line run:
 
     $ tarzan
 
+To use Campfire as an interface, define the following environment variables: `CAMPFIRE_SUBDOMAIN`, `CAMPFIRE_ROOM_ID` and `CAMPFIRE_TOKEN`.
+
 ## Contributing
 
 1. Fork it ( http://github.com/claudiob/tarzan/fork )

@@ -1,22 +1,28 @@
 module Tarzan
-  module RockPaperScissors
-    class Move
-      attr_reader :hand
+  module Games
+    module RockPaperScissors
+      class Move
+        attr_reader :choice
 
-      def initialize(options = {})
-        @hand = options[:hand]
-      end
-
-      def <=>(another)
-        case "#{hand}#{another.hand}"
-          when 'RS', 'SP', 'PR' then 1
-          when 'RP', 'SR', 'PS' then -1
-          else 0
+        def self.valid
+          ['R', 'P', 'S']
         end
-      end
 
-      def to_s
-        "#{@hand}"
+        def initialize(options = {})
+          @choice = options[:choice]
+        end
+
+        def <=>(another)
+          case "#{choice}#{another.choice}"
+            when 'RS', 'SP', 'PR' then 1
+            when 'RP', 'SR', 'PS' then -1
+            else 0
+          end
+        end
+
+        def to_s
+          "#{@choice}"
+        end
       end
     end
   end

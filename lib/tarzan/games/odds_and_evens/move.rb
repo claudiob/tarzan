@@ -1,29 +1,35 @@
 module Tarzan
-  module OddsAndEvens
-    class Move
-      attr_reader :fingers
+  module Games
+    module OddsAndEvens
+      class Move
+        attr_reader :choice
 
-      def initialize(options = {})
-        @wins_on_odds = options[:wins_on_odds]
-        @fingers = options[:fingers]
-      end
-
-      def <=>(another)
-        case fingers + another.fingers + finger_offset
-          when ->(sum) { sum.odd? } then 1
-          when ->(sum) { sum.even? } then -1
-          else 0 # impossible :)
+        def self.valid
+          ('1'..'5').to_a
         end
-      end
 
-      def to_s
-        "#{@fingers}"
-      end
+        def initialize(options = {})
+          @wins_on_odds = options[:wins_on_odds]
+          @choice = options[:choice]
+        end
 
-    private
+        def <=>(another)
+          case choice.to_i + another.choice.to_i + finger_offset
+            when ->(sum) { sum.odd? } then 1
+            when ->(sum) { sum.even? } then -1
+            else 0 # impossible :)
+          end
+        end
 
-      def finger_offset
-        @wins_on_odds ? 0 : 1
+        def to_s
+          "#{@choice}"
+        end
+
+      private
+
+        def finger_offset
+          @wins_on_odds ? 0 : 1
+        end
       end
     end
   end
