@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'tarzan'
+rescue LoadError
+  require 'rubygems'
+  require 'tarzan'
+end
+
+Tarzan.play!
