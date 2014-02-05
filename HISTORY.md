@@ -1,0 +1,1 @@
+v0.0.2  - 2014/02/05 Shell-only Rock Paper Scissors game
