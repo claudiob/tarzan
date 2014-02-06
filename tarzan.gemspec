@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'nico', '>= 0.1.0' # Campfire integration
+  spec.add_dependency 'gosu' # 2D graphic engine for OS X
 
   spec.add_development_dependency 'bundler', '~> 1.5'
   spec.add_development_dependency 'rake', '~> 0'

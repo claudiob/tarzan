@@ -1,23 +1,25 @@
 require 'tarzan/interfaces/base/interface'
-require 'nico'
+require 'tarzan/interfaces/desktop/window'
 
 module Tarzan
   module Interfaces
-    module Campfire
+    module Desktop
       class Interface < Base::Interface
         def initialize(options = {})
-          @room = Nico::Room.new options
+          @window = Window.new
+        end
+        
+        def run
+          super
+          @window.show
         end
 
         def say(message)
-          @room.say message
+          @window.push_alert message
         end
 
         def prompt(valid_choices = [])
           say %{Pick one: #{valid_choices.join ' - '} }
-          @room.each_message do |message|
-            return message if valid_choices.include?(message)
-          end
         end
       end
     end

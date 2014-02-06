@@ -5,19 +5,23 @@ module Tarzan
   module Interfaces
     module Base
       class Interface
-        def play
+        def run
           say %{Welcome to the Game Hall}
 
           say %{Pick [R]ockPaperScissors or [O]ddsAndEvens: }
 
-          game = case prompt(['R', 'O'])
-            when 'R' then Tarzan::Games::RockPaperScissors::Game.new interface: self
-            when 'O' then Tarzan::Games::OddsAndEvens::Game.new interface: self
-          end
-
-          game.play
+          # game = case prompt(['R', 'O'])
+          #   when 'R' then Tarzan::Games::RockPaperScissors::Game.new interface: self
+          #   when 'O' then Tarzan::Games::OddsAndEvens::Game.new interface: self
+          # end
+          #
+          # game.play
 
           say %{Goodbye, and come back to the Game Hall}
+        end
+
+        def welcome_to_game_hall
+          # Subclasses are expected to define how to setup the interface
         end
 
         def say(message)

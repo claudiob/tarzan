@@ -4,7 +4,6 @@ module Tarzan
   module Interfaces
     module Shell
       class Interface < Base::Interface
-
         def say(message)
           puts message
         end
