@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'nico', '>= 0.1.0' # Campfire integration
+  spec.add_dependency 'nico', '>= 0.1.1' # Campfire integration
   spec.add_dependency 'gosu' # 2D graphic engine for OS X
 
   spec.add_development_dependency 'bundler', '~> 1.5'
