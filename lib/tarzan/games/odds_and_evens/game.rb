@@ -6,20 +6,26 @@ module Tarzan
     module OddsAndEvens
       class Game < Base::Game
 
-      private
-
-        def rules
-          'Odd sum wins, even sum loses'
-        end
-
         def prompt_move
-          choice = @interface.prompt(Move.valid).to_i
-          Move.new choice: choice, wins_on_odds: true
+          choices = Hash[*Move.valid.map{|move| [move, ->{confirm_move move}]}.flatten]
+          @interface.set_prompt %{Choose your move}, choices
         end
+
+        def confirm_move(choice)
+          @move_p1 = Move.new choice: choice.to_i, wins_on_odds: true
+          @move_p2 = random_move
+          @interface.set_prompt %{You played #{@move_p1} - I played #{@move_p2}}, ok: ->{show_outcome}
+        end
+
+      private
 
         def random_move
           choice = Move.valid.sample
           Move.new choice: choice, wins_on_odds: false
+        end
+
+        def rules
+          'Odd sum wins, even sum loses'
         end
       end
     end

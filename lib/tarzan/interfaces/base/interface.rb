@@ -5,27 +5,44 @@ module Tarzan
   module Interfaces
     module Base
       class Interface
-        def play
-          say %{Welcome to the Game Hall}
+        def run
+          welcome_players
+          catch(:exit) { @window.show }
+        end
 
-          say %{Pick [R]ockPaperScissors or [O]ddsAndEvens: }
+        def welcome_players
+          set_prompt %{Welcome to the Game Hall}, ok: ->{select_game}
+        end
 
-          game = case prompt(['R', 'O'])
-            when 'R' then Tarzan::Games::RockPaperScissors::Game.new interface: self
-            when 'O' then Tarzan::Games::OddsAndEvens::Game.new interface: self
-          end
+        def select_game
+          set_prompt %{Pick [R]ockPaperScissors or [O]ddsAndEvens}, r: ->{play_rps}, o: ->{play_oae}
+        end
 
+        def play_rps
+          game = Tarzan::Games::RockPaperScissors::Game.new interface: self
           game.play
-
-          say %{Goodbye, and come back to the Game Hall}
         end
 
-        def say(message)
-          # Subclasses are expected to define how to say messages
+        def play_oae
+          game = Tarzan::Games::OddsAndEvens::Game.new interface: self
+          game.play
         end
 
-        def prompt(valid_choices = [])
-          # Subclasses are expected to define how to prompt messages
+        def game_over
+          set_prompt %{Game over!}, ok: ->{farewell_players}
+        end
+
+        def farewell_players
+          set_prompt %{Goodbye, and come back to the Game Hall}, bye: ->{exit}
+        end
+
+        def exit
+          throw :exit
+        end
+
+        def set_prompt(message, choices = {})
+          @window.alert = message
+          @window.buttons = choices
         end
       end
     end

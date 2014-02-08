@@ -7,20 +7,22 @@ module Tarzan
         end
 
         def play
-          @interface.say %{Rules: #{rules}}
+          @interface.set_prompt %{Rules: #{rules}}, ok: ->{prompt_move}
+        end
 
-          move_p1 = prompt_move
-          move_p2 = random_move
+        def prompt_move
+        end
 
-          @interface.say %{You played #{move_p1} - I played #{move_p2}}
+        def confirm_move(choice)
+        end
 
-          outcome = case move_p1 <=> move_p2
+        def show_outcome
+          outcome = case @move_p1 <=> @move_p2
             when 1  then %{You win!}
             when -1 then %{You lose!}
             when 0  then %{It’s a tie!}
           end
-
-          @interface.say outcome
+          @interface.set_prompt outcome, ok: ->{@interface.game_over}
         end
 
       private
@@ -29,12 +31,7 @@ module Tarzan
           # Subclasses are expected to define rules
         end
 
-        def prompt_move
-          # Subclasses are expected to define how to prompt the user for a move
-        end
-
         def random_move
-          # Subclasses are expected to define how to get a random move
         end
       end
     end
