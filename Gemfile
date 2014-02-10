@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-# gem 'debugger'
+gem 'debugger'
 
 # Specify your gem's dependencies in tarzan.gemspec
 gemspec

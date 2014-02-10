@@ -9,9 +9,13 @@ end
 
 puts %{Pick [S]hell, [C]ampfire, or [D]esktop: }
 interface = case gets.strip
-  when 'S' then Tarzan::Interfaces::Shell::Interface.new
-  when 'C' then Tarzan::Interfaces::Campfire::Interface.new subdomain: ENV['CAMPFIRE_SUBDOMAIN'], room_id: ENV['CAMPFIRE_ROOM_ID'], token: ENV['CAMPFIRE_TOKEN']
-  when 'D' then Tarzan::Interfaces::Desktop::Interface.new
+  when 'S'
+    require 'tarzan/interfaces/shell'
+    Tarzan::Tournament.run Tarzan::Shell
+  when 'C'
+    require 'tarzan/interfaces/campfire'
+    Tarzan::Tournament.run Tarzan::Campfire, subdomain: ENV['CAMPFIRE_SUBDOMAIN'], room_id: ENV['CAMPFIRE_ROOM_ID'], token: ENV['CAMPFIRE_TOKEN']
+  when 'D'
+    require 'tarzan/interfaces/desktop'
+    Tarzan::Tournament.run Tarzan::Desktop
 end
-
-interface.run
